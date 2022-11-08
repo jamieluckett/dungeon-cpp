@@ -3,4 +3,4 @@ project(dungeoncpp)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(dungeoncpp main.cpp Floor.cpp Floor.h RandomFloor.cpp RandomFloor.h DrunkardsWalk.cpp DrunkardsWalk.h)
+add_executable(dungeoncpp main.cpp Floor.cpp Floor.h RandomFloor.cpp RandomFloor.h DrunkardsWalk.cpp DrunkardsWalk.h Coordinate.cpp Coordinate.h)

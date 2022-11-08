@@ -6,9 +6,13 @@
 #define DUNGEONCPP_FLOOR_H
 
 #include <map>
+#include <random>
 
-int const kMaxWidth = 100;
-int const kMaxHeight = 100;
+int const kMaxWidth = 1000;
+int const kMaxHeight = 1000;
+
+static std::random_device m_rd;
+static std::mt19937 m_randomDist{m_rd()};
 
 enum class Tile {
     FLOOR,
@@ -36,7 +40,7 @@ public:
 
     void Fill(Tile tile);
 
-    int calcPercentageTileType(Tile tileType);
+    float calcPercentageTileType(Tile tileType);
 };
 
 #endif //DUNGEONCPP_FLOOR_H

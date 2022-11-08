@@ -39,16 +39,14 @@ void Floor::generate() {
     Fill(Tile::WALL);
 }
 
-int Floor::calcPercentageTileType(Tile tileType) {
+float Floor::calcPercentageTileType(Tile tileType) {
     int tileTypeCount = 0;
     for (int x = 0; x < m_width; x++) {
         for (int y = 0; y < m_height; y++) {
             if (m_array[x][y] == tileType) { tileTypeCount++; }
         }
     }
-
-    return (tileTypeCount / m_tileCount) * 100;
-
+    return ((float) tileTypeCount / (float) m_tileCount) * 100;
 }
 
 void Floor::stdout_print() {

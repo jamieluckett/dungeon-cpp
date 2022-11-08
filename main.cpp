@@ -4,7 +4,7 @@
 #include "DrunkardsWalk.h"
 
 int main() {
-    DrunkardsWalk *floor = new DrunkardsWalk(50, 50);
+    DrunkardsWalk *floor = new DrunkardsWalk(70, 370);
     floor->generate();
     floor->stdout_print();
     return 0;

@@ -4,12 +4,14 @@
 
 #include <unistd.h>
 #include "DrunkardsWalk.h"
-#include <chrono>
+#include "Coordinate.h"
 #include <thread>
 #include <iostream>
 
-int kWalkedGoalPercentage = 50;
-std::array<std::pair<int, int>, 4> cardinalDirections = {{
+static int kWalkedGoalPercentage = 45;
+static std::uniform_int_distribution uid(0,3);
+
+std::array<Coordinate, 4> cardinalDirections = {{
         {0, 1},  // N
         {1, 0},  // E
         {0, -1}, // S
@@ -17,26 +19,48 @@ std::array<std::pair<int, int>, 4> cardinalDirections = {{
 }};
 
 
+Coordinate randomDirection() {
+    return cardinalDirections[uid(m_randomDist)];
+}
+
 void DrunkardsWalk::generate() {
     Fill(Tile::WALL);
-    int currentWalkedPercentage = 0;
+    float currentWalkedPercentage = 0;
     // Choose a random starting place
-    std::pair<int, int> currentCoordinates = {rand() % m_width, rand() % m_height};
+    Coordinate currentCoordinates = {rand() % m_width, rand() % m_height};
 
-    int i = 40;
+    int i = 0;
+
+    m_randomDist;
+
+    std::cout << currentCoordinates.prettyName() << std::endl;
     while (currentWalkedPercentage < kWalkedGoalPercentage) {
-        std::pair<int, int> nextDirection = cardinalDirections[rand() % cardinalDirections.size()];
-        currentCoordinates.first += nextDirection.first;
-        currentCoordinates.second += nextDirection.second;
-        m_array[currentCoordinates.first][currentCoordinates.second] = Tile::FLOOR;
+        Coordinate nextDirection = randomDirection();
 
-        currentWalkedPercentage = calcPercentageTileType(Tile::FLOOR);
-        i--;
-        if (i == 0) {
-            system("clear");
-            std::cout << currentCoordinates.first << currentCoordinates.second << std::endl;
-            stdout_print();
-            i = 40;
+        Coordinate proposedCoordinates = currentCoordinates + nextDirection;
+        // Check proposedCoordinates is in-bounds
+//        if (
+//                proposedCoordinates.m_x >= 0 &&
+//                proposedCoordinates.m_x < m_width &&
+//                proposedCoordinates.m_y >= 0
+//                && proposedCoordinates.m_y < m_height
+//        ) {
+        if (
+                proposedCoordinates.m_x >= 1 &&
+                proposedCoordinates.m_x < m_width - 1 &&
+                proposedCoordinates.m_y >= 11
+                && proposedCoordinates.m_y < m_height - 1
+                ) {
+            currentCoordinates = proposedCoordinates;
+            m_array[currentCoordinates.m_x][currentCoordinates.m_y] = Tile::FLOOR;
+
+            currentWalkedPercentage = calcPercentageTileType(Tile::FLOOR);
+            if (i % 100 == 0) {
+                system("clear");
+                std::cout << currentCoordinates.prettyName() + " | % = " + std::to_string(currentWalkedPercentage) << std::endl;
+                stdout_print();
+            }
+            i++;
         }
     }
 }
