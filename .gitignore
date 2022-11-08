@@ -1,0 +1,5 @@
+# Build Artifacts
+.idea
+
+# Development Files
+cmake-build-debug
