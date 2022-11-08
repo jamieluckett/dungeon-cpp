@@ -1,9 +1,10 @@
 #include <iostream>
 #include "Floor.h"
 #include "RandomFloor.h"
+#include "DrunkardsWalk.h"
 
 int main() {
-    RandomFloor *floor = new RandomFloor(15, 15);
+    DrunkardsWalk *floor = new DrunkardsWalk(50, 50);
     floor->generate();
     floor->stdout_print();
     return 0;

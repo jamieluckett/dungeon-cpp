@@ -26,6 +26,7 @@ public:
     Tile m_array[kMaxWidth][kMaxHeight];
     int m_width;
     int m_height;
+    int m_tileCount;
 
     Floor(int width, int height);
 
@@ -34,6 +35,8 @@ public:
     void stdout_print();
 
     void Fill(Tile tile);
+
+    int calcPercentageTileType(Tile tileType);
 };
 
 #endif //DUNGEONCPP_FLOOR_H
