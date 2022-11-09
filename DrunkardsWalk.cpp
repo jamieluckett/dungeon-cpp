@@ -5,8 +5,8 @@
 #include <unistd.h>
 #include "DrunkardsWalk.h"
 #include "Coordinate.h"
-#include <thread>
 #include <iostream>
+#include <array>
 
 static int kWalkedGoalPercentage = 45;
 static std::uniform_int_distribution uid(0,3);
@@ -27,9 +27,13 @@ void DrunkardsWalk::generate() {
     Fill(Tile::WALL);
     float currentWalkedPercentage = 0;
     // Choose a random starting place
-    Coordinate currentCoordinates = {rand() % m_width, rand() % m_height};
+    Coordinate currentCoordinates = {
+            std::uniform_int_distribution(0, m_width - 1)(m_randomDist),
+            std::uniform_int_distribution(0, m_height - 1)(m_randomDist),
+    };
 
     int i = 0;
+    int lastP = 0;
 
     m_randomDist;
 
@@ -55,12 +59,12 @@ void DrunkardsWalk::generate() {
             m_array[currentCoordinates.m_x][currentCoordinates.m_y] = Tile::FLOOR;
 
             currentWalkedPercentage = calcPercentageTileType(Tile::FLOOR);
-            if (i % 100 == 0) {
+            if ((int) currentWalkedPercentage > lastP) {
                 system("clear");
                 std::cout << currentCoordinates.prettyName() + " | % = " + std::to_string(currentWalkedPercentage) << std::endl;
                 stdout_print();
+                lastP = (int) currentWalkedPercentage;
             }
-            i++;
         }
     }
 }

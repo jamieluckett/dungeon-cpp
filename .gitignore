@@ -3,3 +3,7 @@
 
 # Development Files
 cmake-build-debug
+cmake-build-release
+
+# External Libs
+extlib
