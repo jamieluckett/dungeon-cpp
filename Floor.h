@@ -7,6 +7,7 @@
 
 #include <map>
 #include <random>
+#include "Renderer.h"
 
 int const kMaxWidth = 1000;
 int const kMaxHeight = 1000;
@@ -30,7 +31,7 @@ public:
     Tile m_array[kMaxWidth][kMaxHeight];
     int m_width;
     int m_height;
-    int m_tileCount;
+
 
     Floor(int width, int height);
 
@@ -41,6 +42,12 @@ public:
     void Fill(Tile tile);
 
     float calcPercentageTileType(Tile tileType);
+
+    void renderFloor();
+
+private:
+    int m_tileCount;
+    Renderer m_renderer;
 };
 
 #endif //DUNGEONCPP_FLOOR_H

@@ -49,6 +49,11 @@ float Floor::calcPercentageTileType(Tile tileType) {
     return ((float) tileTypeCount / (float) m_tileCount) * 100;
 }
 
+
+void Floor::renderFloor() {
+
+}
+
 void Floor::stdout_print() {
     std::cout << "Printing Dungeon" << std::endl;
     for (int x = 0; x < m_width; x++) {

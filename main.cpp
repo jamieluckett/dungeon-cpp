@@ -1,5 +1,6 @@
 #include <iostream>
 #include <getopt.h>
+#include <memory>
 #include "Floor.h"
 #include "SFML/Graphics.hpp"
 
@@ -23,10 +24,10 @@ int main(int argc, char *argv[]) {
                 printHelp();
                 return -1;
             case 'w':
-                floorWidth = atoi(optarg);
+                floorWidth = strtol(optarg, nullptr, 10);
                 continue;
             case 'h':
-                floorHeight = atoi(optarg);
+                floorHeight = strtol(optarg, nullptr, 10);;
                 continue;
             case 'r':
                 continue;
@@ -39,7 +40,7 @@ int main(int argc, char *argv[]) {
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
     while (window.isOpen()) {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
@@ -48,8 +49,9 @@ int main(int argc, char *argv[]) {
         window.display();
     }
 
-//    Floor floor = Floor(floorWidth, floorHeight);
-//    floor.generate();
-//    floor.stdout_print();
+    auto floor = std::make_unique<Floor>(floorWidth, floorHeight);
+    floor->generate();
+    floor->stdout_print();
+
     return 0;
 }
