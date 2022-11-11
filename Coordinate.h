@@ -16,10 +16,10 @@ public:
     bool operator==(const Coordinate& c) const;
     bool operator!=(const Coordinate& c) const;
 
-    std::string prettyName();
+    std::string prettyName() const;
 
-    int m_x;
-    int m_y;
+    int x;
+    int y;
 };
 
 

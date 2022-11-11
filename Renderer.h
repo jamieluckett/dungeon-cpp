@@ -6,8 +6,11 @@
 #define DUNGEONCPP_RENDERER_H
 
 
-class Renderer {
+#include "Floor.h"
 
+class Renderer {
+public:
+    virtual void renderFloor(Floor& floor) = 0;
 };
 
 

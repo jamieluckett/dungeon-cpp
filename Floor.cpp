@@ -3,16 +3,8 @@
 //
 
 #include <stdexcept>
-#include <iostream>
 #include "Floor.h"
-
-std::map<Tile, char const> TileChar = {
-    {Tile::FLOOR, ' '},
-    {Tile::WALL, '#'},
-    {Tile::DOOR, '['},
-    {Tile::WATER, '~'},
-};
-
+#include "Renderer.h"
 
 Floor::Floor(int width, int height) {
     if (width >= kMaxWidth) {
@@ -47,20 +39,4 @@ float Floor::calcPercentageTileType(Tile tileType) {
         }
     }
     return ((float) tileTypeCount / (float) m_tileCount) * 100;
-}
-
-
-void Floor::renderFloor() {
-
-}
-
-void Floor::stdout_print() {
-    std::cout << "Printing Dungeon" << std::endl;
-    for (int x = 0; x < m_width; x++) {
-        for (int y = 0; y < m_height; y++) {
-            // Init all tiles (in range) to Floor
-            std::cout << TileChar[m_array[x][y]];
-        }
-        std::cout << std::endl;
-    }
 }

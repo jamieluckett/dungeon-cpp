@@ -31,7 +31,11 @@ add_executable(
         DrunkardsWalk.cpp DrunkardsWalk.h
         Floor.cpp Floor.h
         RandomFloor.cpp RandomFloor.h
-        Renderer.cpp Renderer.h
-        StdOutRender.cpp StdOutRender.h
+        Renderer.h
+        StdOutRenderer.cpp StdOutRenderer.h
+        SFMLRenderer.cpp SFMLRenderer.h
 )
+
 target_link_libraries(dungeoncpp sfml-graphics)
+
+file(COPY tiles DESTINATION .)

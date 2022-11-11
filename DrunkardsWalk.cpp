@@ -27,44 +27,28 @@ void DrunkardsWalk::generate() {
     Fill(Tile::WALL);
     float currentWalkedPercentage = 0;
     // Choose a random starting place
-    Coordinate currentCoordinates = {
+    m_drunkardLocation = {
             std::uniform_int_distribution(0, m_width - 1)(m_randomDist),
             std::uniform_int_distribution(0, m_height - 1)(m_randomDist),
     };
 
-    int i = 0;
     int lastP = 0;
 
-    m_randomDist;
-
-    std::cout << currentCoordinates.prettyName() << std::endl;
+    std::cout << m_drunkardLocation.prettyName() << std::endl;
     while (currentWalkedPercentage < kWalkedGoalPercentage) {
         Coordinate nextDirection = randomDirection();
 
-        Coordinate proposedCoordinates = currentCoordinates + nextDirection;
-        // Check proposedCoordinates is in-bounds
-//        if (
-//                proposedCoordinates.m_x >= 0 &&
-//                proposedCoordinates.m_x < m_width &&
-//                proposedCoordinates.m_y >= 0
-//                && proposedCoordinates.m_y < m_height
-//        ) {
-        if (
-                proposedCoordinates.m_x >= 1 &&
-                proposedCoordinates.m_x < m_width - 1 &&
-                proposedCoordinates.m_y >= 11
-                && proposedCoordinates.m_y < m_height - 1
-                ) {
-            currentCoordinates = proposedCoordinates;
-            m_array[currentCoordinates.m_x][currentCoordinates.m_y] = Tile::FLOOR;
+        Coordinate proposedCoordinates = m_drunkardLocation + nextDirection;
+        if (proposedCoordinates.x >= 1 && proposedCoordinates.x < m_width - 1 && proposedCoordinates.y >= 11 && proposedCoordinates.y < m_height - 1) {
+            m_drunkardLocation = proposedCoordinates;
+            m_array[m_drunkardLocation.x][m_drunkardLocation.y] = Tile::FLOOR;
 
             currentWalkedPercentage = calcPercentageTileType(Tile::FLOOR);
             if ((int) currentWalkedPercentage > lastP) {
                 system("clear");
-                std::cout << currentCoordinates.prettyName() + " | % = " + std::to_string(currentWalkedPercentage) << std::endl;
-                stdout_print();
                 lastP = (int) currentWalkedPercentage;
             }
         }
     }
+
 }

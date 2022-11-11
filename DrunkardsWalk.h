@@ -7,12 +7,16 @@
 
 
 #include "Floor.h"
+#include "Coordinate.h"
 
 class DrunkardsWalk: public Floor {
     using Floor::Floor;
 
 public:
     void generate() override;
+
+private:
+    Coordinate m_drunkardLocation;
 };
 
 

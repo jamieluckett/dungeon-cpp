@@ -5,7 +5,6 @@
 #ifndef DUNGEONCPP_RANDOMFLOOR_H
 #define DUNGEONCPP_RANDOMFLOOR_H
 
-
 #include "Floor.h"
 
 class RandomFloor: public Floor {
