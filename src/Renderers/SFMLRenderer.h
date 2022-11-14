@@ -12,7 +12,7 @@
 
 class SFMLRenderer: public Renderer {
 public:
-    explicit SFMLRenderer(sf::RenderWindow& window);
+    SFMLRenderer();
 
     std::map<Tile, sf::Texture> TileTextureMap;
     std::map<Tile, std::string> TileTextureNameMap = {
@@ -25,9 +25,12 @@ public:
     void loadTextures();
     void renderFloor(Floor& floor) override;
 
+    int getTileSize();
+
 private:
-    sf::RenderWindow& m_sfmlWindow;
+    sf::RenderWindow m_sfmlWindow;
     static sf::Texture loadTexture(const std::string& textureName);
+
 };
 
 #endif //DUNGEONCPP_SFMLRENDERER_H

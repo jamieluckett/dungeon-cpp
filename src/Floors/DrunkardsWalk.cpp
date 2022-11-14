@@ -45,7 +45,6 @@ void DrunkardsWalk::generate() {
 
             currentWalkedPercentage = calcPercentageTileType(Tile::FLOOR);
             if ((int) currentWalkedPercentage > lastP) {
-                system("clear");
                 lastP = (int) currentWalkedPercentage;
             }
         }

@@ -4,7 +4,6 @@
 
 #include <stdexcept>
 #include "Floor.h"
-#include "Renderer.h"
 
 Floor::Floor(int width, int height) {
     if (width >= kMaxWidth) {
@@ -18,17 +17,17 @@ Floor::Floor(int width, int height) {
     m_tileCount = width * height;
 }
 
+void Floor::registerRendererCallback(std::function<void(Floor& f)> cb) {
+    m_rendererCallback = cb;
+}
+
 
 void Floor::Fill(Tile tile) {
     for (int x = 0; x < m_width; x++) {
         for (int y = 0; y < m_height; y++) {
-            m_array[x][y] = tile;
+            setCoord(x, y, tile);
         }
     }
-}
-
-void Floor::generate() {
-    Fill(Tile::WALL);
 }
 
 float Floor::calcPercentageTileType(Tile tileType) {
@@ -39,4 +38,22 @@ float Floor::calcPercentageTileType(Tile tileType) {
         }
     }
     return ((float) tileTypeCount / (float) m_tileCount) * 100;
+}
+
+
+Tile Floor::getCoord(int x, int y) {
+    return m_array[x][y];
+}
+
+Tile Floor::getCoord(Coordinate coord) {
+    return getCoord(coord.x, coord.y);
+};
+
+
+void Floor::setCoord(int x, int y, Tile tile) {
+    m_array[x][y] = tile;
+}
+
+void Floor::setCoord(Coordinate coord, Tile tile) {
+    setCoord(coord.x, coord.y, tile);
 }

@@ -24,16 +24,25 @@ endif()
 # >(._.)< crab
 # [._.]  robot
 
+set(
+        INCLUDE_DIRS
+        src/Floors
+        src/Renderers
+        src/Util
+)
+
 add_executable(
-        dungeoncpp
-        main.cpp
-        Coordinate.cpp Coordinate.h
-        DrunkardsWalk.cpp DrunkardsWalk.h
-        Floor.cpp Floor.h
-        RandomFloor.cpp RandomFloor.h
-        Renderer.h
-        StdOutRenderer.cpp StdOutRenderer.h
-        SFMLRenderer.cpp SFMLRenderer.h
+    dungeoncpp
+    src/main.cpp
+    src/Floors/DrunkardsWalk.cpp
+    src/Floors/Floor.cpp
+    src/Floors/RandomFloor.cpp
+    src/Renderers/SFMLRenderer.cpp
+        src/Util/Coordinate.cpp
+)
+
+target_include_directories(
+    dungeoncpp PRIVATE ${INCLUDE_DIRS}
 )
 
 target_link_libraries(dungeoncpp sfml-graphics)
